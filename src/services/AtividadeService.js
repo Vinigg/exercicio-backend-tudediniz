@@ -27,7 +27,7 @@ class AtividadeService {
         if (filtro.id) {
             return await this.service('atividades').where({id: filtro.id}).delete();
         }
-        throw new AtividadeNaoEcontradaError    ('Necessário informar id!')
+        throw new AtividadeNaoEcontradaError('Necessário informar id!')
     }
 }
 
