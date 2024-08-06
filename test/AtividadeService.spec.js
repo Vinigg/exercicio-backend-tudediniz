@@ -1,9 +1,9 @@
-const AtividadeService = require('../src/services/AtividadeService');
-const db = require('../src/db');
-const AtividadeNaoEcontradaError = require('../src/errors/AtividadeNaoEncontradaError');
+const AtividadeService = require('./AtividadeService');
+const db = require('../db');
+const AtividadeNaoEcontradaError = require('../errors/AtividadeNaoEncontradaError');
 
 // Mock do serviço de banco de dados
-jest.mock('../src/db', () => ({
+jest.mock('../db', () => ({
   ...jest.fn(),
   returning: jest.fn().mockReturnThis(),
   insert: jest.fn().mockReturnThis(),
@@ -16,12 +16,11 @@ describe('AtividadeService', () => {
   beforeEach(() => {
     service = new AtividadeService(db);
   });
-  
+
   describe('atividade', () => {
     it('deve retornar a atividade procurada', async () => {
       const mockAtividade = { id: 1, nome: 'Teste' };
-      //db.where.mockResolvedValueOnce({ first: () => mockAtividade });
-      db.where.mockResolvedValueOnce([mockAtividade])
+      db.where.mockResolvedValueOnce({ first: () => mockAtividade });
 
       const result = await service.atividade(1);
       expect(result).toEqual(mockAtividade);
@@ -59,8 +58,7 @@ describe('AtividadeService', () => {
   describe('atualizarAtividade', () => {
     it('deve atualizar a atividade e retornar a atividade atualizada', async () => {
       const mockAtividade = { id: 1, nome: 'Atualizado' };
-      //db.where.mockResolvedValueOnce({ update: () => [mockAtividade] });
-      db.where.mockResolvedValueOnce([mockAtividade]);
+      db.where.mockResolvedValueOnce({ update: () => [mockAtividade] });
 
       const result = await service.atualizarAtividade(1, mockAtividade);
       expect(result).toEqual(mockAtividade);
@@ -81,7 +79,7 @@ describe('AtividadeService', () => {
 
       const result = await service.deletarAtividade({ id: 1 });
       expect(result).toBe(1);
-      expect(db.delete).toHaveBeenCalledWith({ id: 1 });
+      expect(db.where).toHaveBeenCalledWith({ id: 1 });
     });
 
     it('deve lançar AtividadeNaoEcontradaError se o id não for fornecido', async () => {
