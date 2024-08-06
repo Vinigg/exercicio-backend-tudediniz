@@ -1,0 +1,24 @@
+{
+  "name": "exercicio-backend-tudediniz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --ext js,gql",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "@graphql-tools/load-files": "^7.0.0",
+    "apollo-server": "^3.13.0",
+    "graphql": "^16.9.0",
+    "graphql-tools": "^9.0.1",
+    "knex": "^3.1.0",
+    "pg": "^8.12.0"
+  }
+}

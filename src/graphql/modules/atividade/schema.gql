@@ -1,0 +1,37 @@
+type Atividade {
+    id: Int,
+    titulo: String,
+    cor: String,
+    descricao: String,
+    user_id: Int
+
+    usuario: Usuario
+}
+
+type Usuario {
+    id:Int,
+    nome: String,
+    email: String,
+}
+
+input AtividadeInput {
+    titulo: String,
+    cor: String,
+    descricao: String, 
+    user_id: Int,
+}
+
+input FiltroInput{
+    id:Int
+}
+
+type Query {
+    atividades: [Atividade],
+    atividade(id:Int!): Atividade,
+}
+
+type Mutation {
+    criarAtividade(data:AtividadeInput): Atividade
+    atualizarAtividade(id:Int!, data:AtividadeInput): Atividade
+    deletarAtividade(filtro:FiltroInput): Boolean
+} 
