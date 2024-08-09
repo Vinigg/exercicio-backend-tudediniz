@@ -3,8 +3,6 @@ type Atividade {
     titulo: String,
     cor: String,
     descricao: String,
-    user_id: Int
-
     usuario: Usuario
 }
 
@@ -15,10 +13,10 @@ type Usuario {
 }
 
 input AtividadeInput {
-    titulo: String,
-    cor: String,
-    descricao: String, 
-    user_id: Int,
+    titulo: String!,
+    cor: String!,
+    descricao: String!,
+    user_id: Int!
 }
 
 input FiltroInput{

@@ -1,5 +1,6 @@
 const db = require('../db')
 const AtividadeNaoEcontradaError = require('../errors/AtividadeNaoEncontradaError')
+const CampoVazioError = require('../errors/CampoVazioError')
 
 class AtividadeService {
     constructor(service){
@@ -13,7 +14,14 @@ class AtividadeService {
     
     atividades =  async ()=> await this.service('atividades')
 
-    criarAtividade = async (data) => await (await this.service('atividades').insert(data).returning('*'))[0]
+    criarAtividade = async (data) => {
+        if (data.descricao && data.titulo && (data.cor.length == 7) && data.user_id) {
+            return (await this.service('atividades').insert(data).returning('*'))[0]
+        }else{
+            throw new CampoVazioError('Campo vazio!')
+        }
+        
+    }
 
     atualizarAtividade = async (id, data) => {        
             const atividadeProcurada =  await(await this.service('atividades').where({id}).update(data).returning('*'))[0]
